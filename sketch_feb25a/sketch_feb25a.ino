@@ -1,85 +1,175 @@
-
-/* The circuit:
- * LCD RS pin to digital pin 7
- * LCD Enable pin to digital pin 8
- * LCD D4 pin to digital pin 9
- * LCD D5 pin to digital pin 10
- * LCD D6 pin to digital pin 11
- * LCD D7 pin to digital pin 12
- * LCD R/W pin to ground
- * LCD VSS pin to ground
- * LCD VCC pin to 5V
- * 10K resistor:
- * ends to +5V and ground
- * wiper to LCD VO pin (pin 3)
- 
- 
-*/
-
 #include <LiquidCrystal.h>
 
-// initialize the library with the numbers of the interface pins
-LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
+
+LiquidCrystal lcd(8,9,10,11,12, 13);
+
+
+
+const int  LeftSideAdd = 2;    // the pin that the Up pushbutton A 
+
+const int  LeftSideSub = 3;    // the pin that the Down pushbutton B 
+
+const int  RightSideAdd = 5;    // the pin that the Up pushbutton C
+
+const int  RightSideSub = 6;    // the pin that the Down pushbutton D
+
+
+
+int buttonPushCounter = 0;   // counter for the number of button presses
+int buttonStateLeftAdd = 0;         // current state of the button
+int buttonStateLeftSub = 0;         // current state of the button
+int buttonStateRightAdd = 0;         // current state of the button
+int buttonStateRightSub = 0;         // current state of the button
+
+int lastButtonStateLeftAdd = 0;     // previous state of the button
+int lastButtonStateLeftSub = 0;     // previous state of the button
+int lastButtonStateRightAdd = 0;     // previous state of the button
+int lastButtonStateRightSub = 0;     // previous state of the button
+
+
+int ScoreplrA = 0;                  //Score for player A
+int ScoreplrB = 0;                  //Score for player B
+int SetplrA = 0;                    //Set score for player A
+int SetplrB = 0;                    //Set score for player B
+
 
 void setup() {
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
+
+
+  // initialize the button pin as a input:
+   
+   pinMode(LeftSideAdd, INPUT);
+   pinMode(LeftSideSub, INPUT);
+   pinMode(RightSideAdd, INPUT);
+   pinMode(RightSideSub, INPUT);
+   
+  // setup LCD
+   lcd.begin(16,2);
+   
   
-  }
- void loop(){
-  int ScoreplrA = 12;
-  int ScoreplrB = 10;
-  int SetplrA = 2;
-  int SetplrB = 5;
-  lcd.setCursor(0, 0);
+  
+}
+
+
+void loop() {
+
+    // Score board set up 
+    lcd.setCursor(0, 0);
   // Print game score.
   lcd.print("Score A:  - B: ");
-  // Set Player A score.
-  lcd.setCursor(8, 0);
-  // inputs Player A Score to score board.
-  lcd.print(ScoreplrA);
-  // Sets player B score.
-  lcd.setCursor(14,0);
-  // inputs Player B Score to score board.
-  lcd.print(ScoreplrB);
-   lcd.setCursor(0, 2);
+    lcd.setCursor(0,2);
   // Print set score
   lcd.print("Set   A:  - B: ");
-  // Set Player A set points.
-  lcd.setCursor(8, 2);
-  // inputs Player A Score to score board.
-  lcd.print(SetplrA);
-  // Sets player B set points.
-  lcd.setCursor(14,2);
-  // inputs Player B Score to score board.
-  lcd.print(SetplrB);
-  }
 
+   // read the pushbutton up input pin:
+   
+   buttonStateLeftAdd = digitalRead(LeftSideAdd);
 
+  // compare the buttonState to its previous state
 
-/*
-int ledPin = 5;
-int buttonApin = 9;
-int buttonBpin = 8;
+   if (buttonStateLeftAdd != lastButtonStateLeftAdd) {
+     
+     // if the state has changed, increment the counter
+     
+     if (buttonStateLeftAdd == HIGH)
+     
+     {
+       
+      buttonPushCounter++;
+      ScoreplrA++;
+      lcd.setCursor(8,0);
+           
+      lcd.print(ScoreplrA);
+     }
+     
+     
 
-byte leds = 0;
+   }
+   // save the current state as the last state,
+  //for next time through the loop
+   lastButtonStateLeftAdd = buttonStateLeftAdd;
+   
+ 
+  // read the pushbutton up input pin:
+   
+   buttonStateLeftSub = digitalRead(LeftSideSub);
 
-void setup() 
-{
-  pinMode(ledPin, OUTPUT);
-  pinMode(buttonApin, INPUT_PULLUP);  
-  pinMode(buttonBpin, INPUT_PULLUP);  
+  // compare the buttonState to its previous state
+
+   if (buttonStateLeftSub != lastButtonStateLeftSub) {
+     
+     // if the state has changed, increment the counter
+     
+     if (buttonStateLeftSub == HIGH)
+     
+     {
+       
+      buttonPushCounter--;
+      ScoreplrA--;
+      lcd.setCursor(8,0);
+           
+      lcd.print(ScoreplrA);
+     }
+     
+   }
+   // save the current state as the last state,
+  //for next time through the loop
+   lastButtonStateLeftSub = buttonStateLeftSub;
+
+   
+    // read the pushbutton up input pin:
+   
+   buttonStateRightAdd = digitalRead(RightSideAdd);
+
+  // compare the buttonState to its previous state
+
+   if (buttonStateRightAdd != lastButtonStateRightAdd) {
+     
+     // if the state has changed, increment the counter
+     
+     if (buttonStateRightAdd == HIGH)
+     
+     {
+       
+      buttonPushCounter++;
+      ScoreplrB++;
+      lcd.setCursor(14,2);
+           
+      lcd.print(ScoreplrB);
+     }
+     
+   }
+   // save the current state as the last state,
+  //for next time through the loop
+   lastButtonStateRightAdd = buttonStateRightAdd;
+
+  
+    // read the pushbutton up input pin:
+   
+   buttonStateRightSub = digitalRead(RightSideSub);
+
+  // compare the buttonState to its previous state
+
+   if (buttonStateRightSub != lastButtonStateRightSub) {
+     
+     // if the state has changed, increment the counter
+     
+     if (buttonStateRightSub == HIGH)
+     
+     {
+       
+      buttonPushCounter--;
+      ScoreplrB--;
+      lcd.setCursor(14,0);
+           
+      lcd.print(ScoreplrB);
+     }
+     
+     
+
+   }
+   // save the current state as the last state,
+  //for next time through the loop
+  
+   lastButtonStateRightSub = buttonStateRightSub;
 }
-
-void loop() 
-{
-  if (digitalRead(buttonApin) == LOW)
-  {
-    digitalWrite(ledPin, HIGH);
-  }
-  if (digitalRead(buttonBpin) == LOW)
-  {
-    digitalWrite(ledPin, LOW);
-  }
-}
-*/

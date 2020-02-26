@@ -53,13 +53,13 @@ void setup() {
 
 void loop() {
 
-    // Score board set up 
-    lcd.setCursor(0, 0);
-  // Print game score.
-  lcd.print("Score A:  - B: ");
-    lcd.setCursor(0,2);
-  // Print set score
-  lcd.print("Set   A:  - B: ");
+   // Score board set up 
+   lcd.setCursor(0, 0);
+   // Print game score.
+   lcd.print("Score A:  - B: ");
+   lcd.setCursor(0,2);
+   // Print set score
+   lcd.print("Set   A:  - B: ");
 
    // read the pushbutton up input pin:
    
@@ -82,7 +82,7 @@ void loop() {
       lcd.print(ScoreplrA);
      }
      
-     
+      delay(50);
 
    }
    // save the current state as the last state,
@@ -110,7 +110,7 @@ void loop() {
            
       lcd.print(ScoreplrA);
      }
-     
+     delay(50);
    }
    // save the current state as the last state,
   //for next time through the loop
@@ -133,11 +133,11 @@ void loop() {
        
       buttonPushCounter++;
       ScoreplrB++;
-      lcd.setCursor(14,2);
+      lcd.setCursor(15,0);
            
       lcd.print(ScoreplrB);
      }
-     
+      delay(50);
    }
    // save the current state as the last state,
   //for next time through the loop
@@ -160,11 +160,11 @@ void loop() {
        
       buttonPushCounter--;
       ScoreplrB--;
-      lcd.setCursor(14,0);
+      lcd.setCursor(15,0);
            
       lcd.print(ScoreplrB);
      }
-     
+      delay(50);
      
 
    }

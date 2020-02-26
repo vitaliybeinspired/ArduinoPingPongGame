@@ -12,8 +12,11 @@ void setup() {
 
   // put your main code here, to run repeatedly:
 void loop() {
-
 /*
+
+THIS LOOP WILL RUN ALL CODE FROM TOP TO BOTTOM AND CHECK CONDITIONS THEN REPEATEDLY
+THESE AREN'T LOOPS, THE WHOLE CODE IS A LOOP
+
    LCD LOOP    
       if player 1
           lcd print player 1 on left side and player 2 on right side

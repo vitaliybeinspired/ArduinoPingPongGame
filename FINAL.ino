@@ -1,5 +1,3 @@
-
-    
 #include <LiquidCrystal.h>
 
 
@@ -40,10 +38,10 @@ void setup() {
 
   // initialize the button pin as a input:
    
-   pinMode(LeftSideAdd, INPUT);
-   pinMode(LeftSideSub, INPUT);
-   pinMode(RightSideAdd, INPUT);
-   pinMode(RightSideSub, INPUT);
+   pinMode(LeftSideAdd, INPUT_PULLUP);
+   pinMode(LeftSideSub, INPUT_PULLUP);
+   pinMode(RightSideAdd, INPUT_PULLUP);
+   pinMode(RightSideSub, INPUT_PULLUP);
    
   // setup LCD
    lcd.begin(16,2);

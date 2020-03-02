@@ -1,3 +1,12 @@
+/***
+ * Team Members: Noura Jaamour, Samuel Faulkner, Vitaliy Stepanov
+ * CS351 Assignment 3
+ * 
+ * This program keeps track of players score and sets for a Ping Pong Game. The arduino is controlled using high and low states to display LCD information
+ * turn lights on and off, and reads button inputs.
+ * 
+ */
+
 #include <LiquidCrystal.h>
 
 LiquidCrystal lcd(8, 9, 10, 11, 12, 13);
@@ -16,17 +25,15 @@ boolean playerAWinner = false; //true when A is the final game winner
 boolean playerBWinner = false;  //true when B is the final game winner
 boolean winnerLedBlinkOn = true; //used as condition to help the  blink function
 
-// int buttonPushCounter = 0; // counter for the number of button presses
+int buttonStateLeftAdd; // current state of the button
+int buttonStateLeftSub; // current state of the button
+int buttonStateRightAdd; // current state of the button
+int buttonStateRightSub; // current state of the button
 
-int buttonStateLeftAdd = 0; // current state of the button
-int buttonStateLeftSub = 0; // current state of the button
-int buttonStateRightAdd = 0; // current state of the button
-int buttonStateRightSub = 0; // current state of the button
-
-int lastButtonStateLeftAdd = 0; // previous state of the button
-int lastButtonStateLeftSub = 0; // previous state of the button
-int lastButtonStateRightAdd = 0; // previous state of the button
-int lastButtonStateRightSub = 0; // previous state of the button
+int lastButtonStateLeftAdd; // previous state of the button
+int lastButtonStateLeftSub; // previous state of the button
+int lastButtonStateRightAdd; // previous state of the button
+int lastButtonStateRightSub; // previous state of the button
 
 int ScoreplrA = 0; //Score for player A
 int ScoreplrB = 0; //Score for player B
@@ -84,6 +91,7 @@ void decreaseScoreLeft() {
     }
     delay(50);
   }
+  checkAndUpdateSetWinner();
 }
 
 //function to increment player on the right side
@@ -124,6 +132,7 @@ void decreaseScoreRight() {
     delay(50);
   }
   lastButtonStateRightSub = buttonStateRightSub;   // save the current state as the last state for next time through the loop
+  checkAndUpdateSetWinner();
 }
 
 //function to switch who the server side
@@ -255,20 +264,3 @@ void loop() { // this is like main that calls functions in a loop
   decreaseScoreRight();
 }
 
-/*
- * TO DO:
- *    void endGame() { // check if there is a winner
- *      If player A + player B set == 5
-          If player A > player B
-              flash light player A winner
-          else 
-              flash light player B winner   
-      }
-              
- *    void serve() { // 2 serves, then 1 serve at 10 
- *    make score methods less redundant
- *    
- * Questions:
- *    why delay(50)???
- *    necessary to call every function in loop or check "if" need to call it?
- */
